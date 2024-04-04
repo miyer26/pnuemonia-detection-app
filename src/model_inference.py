@@ -10,7 +10,7 @@ class Inference:
         self.transforms = transforms
         
     def _get_model(self):
-        model = torch.load("best_model_elastic.pth", map_location=self.device)
+        model = torch.load(self.model_path, map_location=self.device)
         return model
 
     def predict(self, image_path):
@@ -32,5 +32,6 @@ class Inference:
         with torch.no_grad():
             outputs = self.model(transformed_image)
             label = torch.argmax(outputs, dim=-1).item()
+            classification_label = {0:"Normal", 1:"Pneumonia"}
 
-        return label
+        return classification_label[label]

@@ -1,0 +1,25 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "Pnuemonia Prediction API"
+paths:
+  /predict:
+    post:
+      summary: Upload an image for prediction
+      consumes:
+        - multipart/form-data
+      parameters:
+        - name: file
+          in: formData
+          type: file
+          required: true
+          description: The image file to be uploaded for prediction
+      responses:
+        200:
+          description: Successful prediction
+  /info:
+    get:
+      summary: Get information about the API
+      responses:
+        200:
+          description: Information about the API
