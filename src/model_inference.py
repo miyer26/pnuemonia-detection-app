@@ -1,7 +1,7 @@
 import torch
 from torchvision import transforms
 from PIL import Image
-from image_preprocessing import Transformation
+from src.image_preprocessing import Transformation
 
 class Inference:
     def __init__(self, model_path, transforms: Transformation):
