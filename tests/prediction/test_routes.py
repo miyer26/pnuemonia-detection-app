@@ -1,16 +1,13 @@
 # test_routes.py
+import pytest
+import torch
+
 from unittest.mock import Mock, patch
 from flask_testing import TestCase
 from PIL import Image
 from app import app  # Adjust this import to fit your project structure.
 
-import os
-import pytest
-import torch
-import tempfile
 
-
-from src.image_preprocessing import Transformation
 from src.model_inference import Inference
 
 @pytest.fixture
@@ -28,7 +25,7 @@ def mock_model():
 def inference_instance(mock_model, mock_transformation):
     with patch('torch.load', return_value=mock_model):
         return Inference(model_path="dummy/path/model.pth", transforms=mock_transformation)
-    
+ 
 class TestFlaskRoutes(TestCase):
     def create_app(self):
         app.config['TESTING'] = True
