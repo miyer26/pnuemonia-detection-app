@@ -1,16 +1,17 @@
 import torch
 from torchvision import transforms
 from PIL import Image
+from src.image_preprocessing import Transformation
 
 class Inference:
-    def __init__(self, model_path, transforms):
+    def __init__(self, model_path, transforms: Transformation):
         self.model_path = model_path
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.model = self._get_model()
         self.transforms = transforms
-        
+
     def _get_model(self):
-        model = torch.load("best_model_elastic.pth", map_location=self.device)
+        model = torch.load(self.model_path, map_location=self.device)
         return model
 
     def predict(self, image_path):
@@ -32,5 +33,6 @@ class Inference:
         with torch.no_grad():
             outputs = self.model(transformed_image)
             label = torch.argmax(outputs, dim=-1).item()
+            classification_label = {0:"Normal", 1:"Pneumonia"}
 
-        return label
+        return classification_label[label]
