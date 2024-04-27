@@ -21,7 +21,7 @@ jobs:
         pip install pytest pytest-cov
 
     - name: Run tests
-      run: pytest --cov=src tests/
+      run: python -m pytest tests/
 
     - name: Upload coverage report
       uses: actions/upload-artifact@v2
