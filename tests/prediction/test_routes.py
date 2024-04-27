@@ -25,7 +25,7 @@ def mock_model():
 def inference_instance(mock_model, mock_transformation):
     with patch('torch.load', return_value=mock_model):
         return Inference(model_path="dummy/path/model.pth", transforms=mock_transformation)
- 
+
 class TestFlaskRoutes(TestCase):
     def create_app(self):
         app.config['TESTING'] = True
