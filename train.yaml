@@ -1,0 +1,35 @@
+root_directory: "data/chest_xray_data"
+validation_split: 0.2
+learning_rate: 0.0001
+batch_size: 32
+num_epochs: 20
+optimizer_params:
+  lr: 0.0001
+scheduler_params:
+  mode: 'max'
+  factor: 0.6
+  patience: 5
+  verbose: true
+train_data_dir: "data/chest_xray_data/train_data"
+transformations:
+  - RandomRotation: 10
+  - RandomResizedCrop:
+      size: 224
+      scale: [0.8, 1.0]
+  - RandomApply:
+      transformations:
+        - RandomAffine:
+            degrees: 0
+            translate: [0.1, 0.1]
+      p: 0.2
+  - RandomApply:
+      transformations:
+        - RandomPerspective:
+            distortion_scale: 0.2
+      p: 0.2
+  - ToTensor: {}
+
+peft_model:
+ finetuned: true
+ model_path: best_model.pt
+ model_id_timm: "timm/tf_efficientnetv2_b0.in1k"
